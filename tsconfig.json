@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "lib": ["es6", "dom"],
-    "types": [],
+    "types": ["node"],
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
