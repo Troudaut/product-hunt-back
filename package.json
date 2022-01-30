@@ -7,11 +7,13 @@
     "tsc": "tsc",
     "tsc:build": "tsc --incremental",
     "server": "nodemon src/app.ts",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "lint": "eslint ."
   },
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.25.0",
     "body-parser": "^1.19.0",
     "convict": "^5.2.0",
     "cors": "^2.8.5",
@@ -24,14 +26,16 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/inversify": "^2.0.33",
     "@types/mocha": "^9.1.0",
     "@types/nock": "^11.1.0",
     "@types/node": "^17.0.13",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "axios": "^0.25.0",
     "chai": "^4.3.6",
-    "eslint": "^8.2.0",
+    "eslint": "^7.19.0",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",

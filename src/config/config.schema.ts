@@ -4,5 +4,5 @@ export const CONFIG_SCHEMA = {
     format: 'port',
     default: '3000',
     env: 'NODE_PORT',
-  }
+  },
 };
