@@ -1,7 +1,8 @@
 import { Container, inject, injectable } from 'inversify';
-import Express from 'express';
+import Express, { ErrorRequestHandler, NextFunction, Request, RequestHandler, Response } from 'express';
 import cors from 'cors';
 import 'reflect-metadata';
+import http from 'http';
 require('source-map-support').install();
 
 import { RootRoutes } from './routes/api/root.routes';
@@ -15,6 +16,8 @@ export class App {
 
   private app: Express.Application;
 
+  private server: http.Server;  
+
   constructor(
     @inject('config') private config: IConfig,
     private rootRoute: RootRoutes,
@@ -23,14 +26,44 @@ export class App {
   async init(): Promise<void> {
 
     this.app = Express();
+    this.server = http.createServer(this.app);
 
     this.app.use(cors());
     this.app.use(Express.json());
     this.app.use('/', this.rootRoute.createRouter());
     this.app.disable('x-powered-by');
     this.app.enable('etag');
+    this.app.use(this.useNotFoundErrorHandler());
+    this.app.use(this.useErrorHandler());
 
-    this.app.listen(this.config.port, () => console.log(`App listening at http://localhost:${this.config.port}`));
+    await new Promise<void>((resolve) => {
+      this.server.listen(
+        this.config.port,
+        null,
+        () => {
+          console.log(`Running server on localhost:${this.config.port}`);
+          console.log('Server started');
+
+          resolve();
+        },
+      );
+    });
+  }
+
+  private useNotFoundErrorHandler(): RequestHandler {
+    return (req: Request, res: Response, next: NextFunction): void => {
+      console.log(`Not found path ${req.originalUrl} and method ${req.method}`);
+      return next();
+    };
+  }
+
+  private useErrorHandler(): ErrorRequestHandler {
+    return (error: any, req: Request, res: Response, next: NextFunction): void => {
+      
+      const e = error instanceof Error ? error : new Error(`${error}`);
+      res.status(500).json(e);
+      return next();
+    };
   }
 
 }

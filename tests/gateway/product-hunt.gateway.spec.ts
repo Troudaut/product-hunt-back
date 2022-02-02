@@ -5,6 +5,7 @@ import 'reflect-metadata';
 
 import { IConfig } from '../../src/config/config.model';
 import { ProductHuntGateway } from '../../src/gateway/product-hunt.gateway';
+import { ProductHuntPostMapper } from '../../src/mapper/post.mapper';
 import { ExpectCounter } from '../counter/expect.counter';
 nock.disableNetConnect();
 
@@ -37,7 +38,8 @@ describe('Retrieving posts from Product Hunt', () => {
 
   beforeEach(() => {
     const config = <IConfig>{};
-    productHuntGateway = new ProductHuntGateway(config);
+    const productHuntPostMapper = new ProductHuntPostMapper();
+    productHuntGateway = new ProductHuntGateway(config, productHuntPostMapper);
   });
 
   it('should retrieve the last posts', async () => {

@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { injectable } from 'inversify';
-import { asyncMiddleware } from '../../../../middleware/express.middleware';
+import { asyncMiddleware } from '../../../../core/middleware/express.middleware';
 import { PostsController } from './posts.controller';
 
 
@@ -16,7 +16,7 @@ export class PostsRoutes {
   public createRouter(): express.Router {
     const router = express.Router();
 
-    router.use('/', asyncMiddleware((req: Request, res: Response) => this.postsController.search(req, res)));
+    router.get('/', asyncMiddleware((req: Request, res: Response) => this.postsController.retrievePosts(req, res)));
 
     return router;
   }

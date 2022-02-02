@@ -6,13 +6,14 @@
     "tsc:watch": "tsc -w",
     "tsc": "tsc",
     "tsc:build": "tsc --incremental",
-    "server": "nodemon src/app.ts",
+    "server": "node dist/src/server",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "lint": "eslint ."
   },
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "axios": "^0.25.0",
     "body-parser": "^1.19.0",
     "convict": "^5.2.0",

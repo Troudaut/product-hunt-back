@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { injectable } from 'inversify';
-import { asyncMiddleware } from '../../../middleware/express.middleware';
+import { asyncMiddleware } from '../../../core/middleware/express.middleware';
 import { PostsRoutes } from './posts/posts.routes';
 import { V1Filters } from './v1.filters';
 
