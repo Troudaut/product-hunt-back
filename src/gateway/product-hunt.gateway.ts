@@ -16,11 +16,12 @@ export class ProductHuntGateway {
     private productHuntPostMapper: ProductHuntPostMapper,
   ) { }
 
-  readonly YYYY_MM_DD_DAY_FORMAT_REGEX = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][\d]|3[01])$/;
+  readonly YYYY_MM_DD_DAY_FORMAT_REGEX = /^[12]\d{3}\-(0[1-9]|1[012])\-(0[1-9]|[12][\d]|3[01])$/;
 
   async retrieveLastPostsFromDay(day?: string): Promise<ProductHuntPostDto[]> {
+    console.log(day);
     if (day?.length > 0 && !this.YYYY_MM_DD_DAY_FORMAT_REGEX.test(day)) {
-      throw new FormatError('Invalid date format. Expected format: YYYY-MM-DD');
+      throw new FormatError();
     }
 
     const params = { 
